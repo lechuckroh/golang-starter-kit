@@ -15,16 +15,15 @@ GOTEST_OPT=$(GO_VENDOR_OPT) -v
 TEST_DIR=./...
 BINARY=app
 
-all: clean vendor build
-
 # Build
-build:
+compile:
 	@$(ENV_STATIC_BUILD) $(ENV_GOMOD_ON) $(GOBUILD) $(GOBUILD_OPT) -o $(BINARY)
 
-docker-build:
-	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f docker-build.yml run --rm builder
-docker-build-rmi:
-	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f docker-build.yml down --rmi local || true
+compile-docker:
+	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f build-compose.yml run --rm compile
+
+compile-rmi:
+	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f build-compose.yml down --rmi local || true
 
 # Test
 test:
@@ -36,7 +35,7 @@ clean:
 	@rm -f $(BINARY)
 
 # Run
-run: build
+run: compile
 	@./$(BINARY)
 
 # Install dependencies to vendor/

@@ -1,13 +1,12 @@
 version: "3"
 
 services:
-  builder:
+  compile:
     build:
       context: .
-      dockerfile: Dockerfile-build
+      dockerfile: Dockerfile-compile
       args:
         userName: ${USER_NAME}
         groupName: ${GROUP_NAME}
-    command: ["make", "build"]
     volumes:
       - .:/app

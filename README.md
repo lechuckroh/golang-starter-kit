@@ -6,16 +6,25 @@ This starter kit provides:
 * Uses Go Module
 * Build inside docker
 * Static binary build
+* Jenkins pipeline
 
+## Requirements
+### Local Build
+* Golang 1.11 or higher
+* make
+
+### Docker build
+* docker
+* docker-compose
 
 ## Build
+### Local Build
 ```bash
-# Install depeldencies to vendor/ directory.
 $ make vendor
+$ make compile
+```
 
-# Build with local installed golang
-$ make build
-
-# Build with docker
-$ make docker-build; make docker-build-rmi
+### Docker Build
+```bash
+$ make compile-docker; make compile-rmi
 ```
