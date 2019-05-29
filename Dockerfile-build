@@ -1,0 +1,8 @@
+FROM golang:1.12
+ARG userName
+ARG groupName
+RUN addgroup $groupName
+RUN adduser --disabled-password --gecos "" --force-badname --ingroup $groupName $userName
+USER $userName
+WORKDIR /app
+COPY . /app

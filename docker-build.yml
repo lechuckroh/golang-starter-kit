@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile-build
+      args:
+        userName: ${USER_NAME}
+        groupName: ${GROUP_NAME}
+    command: ["make", "build"]
+    volumes:
+      - .:/app
