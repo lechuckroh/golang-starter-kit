@@ -14,16 +14,17 @@ GOTEST_OPT=$(GO_VENDOR_OPT) -v
 
 TEST_DIR=./...
 BINARY=app
+BUILD_COMPOSE_FILE=build-compose.yml
 
 # Build
 compile:
 	@$(ENV_STATIC_BUILD) $(ENV_GOMOD_ON) $(GOBUILD) $(GOBUILD_OPT) -o $(BINARY)
 
 compile-docker:
-	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f build-compose.yml run --rm compile
+	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f $(BUILD_COMPOSE_FILE) run --rm compile
 
 compile-rmi:
-	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f build-compose.yml down --rmi local || true
+	@USER_NAME=`id -un` GROUP_NAME=`id -gn` docker-compose -f $(BUILD_COMPOSE_FILE) down --rmi local || true
 
 # Test
 test:
